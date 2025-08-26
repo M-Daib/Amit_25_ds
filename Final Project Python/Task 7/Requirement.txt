@@ -1,0 +1,95 @@
+Here’s a clean step‑by‑step guide to run the project.
+
+1) Install Python (if you don’t have it)
+- Download and install Python 3.10+ from https://www.python.org/downloads/
+- During installation, check “Add Python to PATH”
+- Verify:
+```powershell
+py -V
+# or
+python -V
+```
+
+2) Get the project files
+- Make sure these files are in the same folder:
+  person.py, patient.py, staff.py, department.py, hospital.py, UI.py
+
+3) Open a terminal in the project folder
+- In File Explorer: Shift + Right‑click inside the folder → “Open PowerShell window here”
+- Or open CMD/PowerShell and cd to the folder:
+```powershell
+cd "C:\path\to\your\project"
+```
+
+4) Create a virtual environment
+```powershell
+py -3 -m venv .venv
+```
+
+5) Activate the virtual environment
+- PowerShell:
+```powershell
+.\.venv\Scripts\Activate.ps1
+```
+  If you get an execution policy error, run (once):
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+# then activate again
+.\.venv\Scripts\Activate.ps1
+```
+- CMD:
+```cmd
+.\.venv\Scripts\activate.bat
+```
+
+6) Upgrade pip and install the required packages
+- Core GUI (required):
+```powershell
+python -m pip install --upgrade pip
+pip install "PySide6>=6.6,<6.8"
+```
+- Optional (recommended for the Dashboard chart):
+```powershell
+pip install "PySide6-Addons>=6.6,<6.8"
+```
+
+7) Verify the installation (optional but handy)
+```powershell
+python -c "import PySide6, sys; print('PySide6', PySide6.__version__, '->', sys.executable)"
+# If you installed Addons and want to confirm QtCharts:
+python -c "from PySide6.QtCharts import QChart; print('QtCharts OK')"
+```
+
+8) Run the app
+```powershell
+python UI.py
+```
+Note: If your UI file is in a subfolder (e.g., core/UI.py), adjust the path:
+```powershell
+python core\UI.py
+```
+
+9) (Optional) Run from VS Code
+- Open the folder in VS Code
+- Press Ctrl+Shift+P → “Python: Select Interpreter” → choose .venv\Scripts\python.exe
+- Run UI.py from Run and Debug (or right‑click the file → Run Python File in Terminal)
+
+Troubleshooting
+- ModuleNotFoundError: No module named 'PySide6'
+  - Make sure the venv is activated and rerun the install command:
+    pip install "PySide6>=6.6,<6.8"
+- Dashboard chart not showing
+  - Install addons:
+    pip install "PySide6-Addons>=6.6,<6.8"
+- “Qt platform plugin ‘windows’” error
+  - Reinstall PySide6 inside the venv:
+    pip install --force-reinstall --upgrade "PySide6>=6.6,<6.8"
+- Running the file by double‑click closes immediately
+  - Always run from a terminal to see errors:
+    python UI.py
+
+That’s it! Once the window opens, you can:
+- Switch Language (Arabic/English) from the menu
+- Switch Theme (Light/Dark)
+- Use the Patients/Staff/Appointments tabs
+- Save/Load data from the File menu
